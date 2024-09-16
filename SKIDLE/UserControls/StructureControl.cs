@@ -34,7 +34,7 @@ namespace SKIDLE.UserControls
                 {
                     if (line.Contains("var") | line.Contains("class") | line.Contains("fun") | line.Contains("enum"))
                     {
-                       
+
                         if (line.Contains("var"))
                         {
                             index = 1;
@@ -68,6 +68,7 @@ namespace SKIDLE.UserControls
                     }
                 }
                 catch { }
+
             }        
         }
     }

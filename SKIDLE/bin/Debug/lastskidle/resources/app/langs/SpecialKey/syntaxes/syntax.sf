@@ -1,0 +1,1 @@
+match:"(?<=^|[\\s@])(?i:Add|class|fun|enum|struct)(?=$|\\s)"

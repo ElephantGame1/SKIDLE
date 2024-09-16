@@ -82,7 +82,7 @@ namespace SKIDLE
         {
             string ProgID = System.Reflection.Assembly.GetExecutingAssembly().EntryPoint.DeclaringType.FullName;
             string FileLocation = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            CreateAssociation(ProgID, extension, description, FileLocation, Application.StartupPath+ "\\SPKprogram.ico" + ",0", hive);
+            CreateAssociation(ProgID, extension, description, FileLocation, Application.StartupPath+ "\\logo.ico" + ",0", hive);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -126,90 +127,38 @@ namespace SKIDLE.UserControls
         public void Command(string text) {
             if (text == "clear")
                 Clear();
-            else if (text.Contains(".exe"))
-            {
-                try
-                {
-                    Process.Start(text.Split(' ')[0], text.Split(' ')[1]);
-                }
-                catch { Process.Start(text.Split(' ')[0]); }
-            }
-            else if(text.Contains("echo"))
-                this.WriteLine(text.Split("echo"[0])[1]+"\n");
-            else if (text == "SpecialKey")
-                spaceSPK();
-            else if (text == "help")
-                this.WriteLine("help  ,  clear  ,  SpecialKey\n");
+            else
+                executeCommand(text);
         }
 
-        public void spaceSPK()
+        private void executeCommand(string command)
         {
-            String getVer()
+            try
             {
-                return "SPS2";
+                Process.Start(command);
             }
-            this.WriteLine("================\n");
-            this.WriteLine("Special Key " + getVer()+"\n");
-            this.WriteLine("================\n");
-
-            String cmd = this.ReadLine();
-
-            if (cmd.Contains("comp "))
+            catch
             {
-                String path = cmd.Contains(".spk") ?
-                        cmd.Split(' ')[1] :
-                        cmd.Split(' ')[1] + ".spk";
-                try
-                {
-                    Process.Start(Globals.SpecialKey + "SpecialKey.exe",path);
-                }
-                catch (FileNotFoundException e)
-                {
-                    this.WriteLine("File is not found!");
-                }
-                catch (IOException e)
-                {
-                    this.WriteLine("File read error!");
-                }
-            }
-            else if (cmd.Contains("special-pm"))
-            {
-                String[] objs = cmd.Split(' ');
-                if (objs[1].Equals("install"))
-                {
-                    this.WriteLine("https://raw.githubusercontent.com/TiM-SyStEm/Special-Key-SPS/main/special-pm" + objs[2] + ".spk\n");
-                }
-            }
-            else if (cmd.Contains("ver"))
-            {
-                this.WriteLine("============\n");
-                this.WriteLine(getVer());
-                this.WriteLine(" Patch 0\n");
-                this.WriteLine("============\n");
-            }
-            else if (cmd.Contains("cls"))
-            {
-                Clear();
-                this.WriteLine("================\n");
-                this.WriteLine("Special Key " + getVer()+"\n");
-                this.WriteLine("================\n");
-            }
-            else if (cmd.Contains("log"))
-            {
-                this.WriteLine(File.ReadAllText(Globals.SpecialKey + "log.txt")+"\n");
-            }
-            else if (cmd.Contains("clearLog"))
-            {
-                File.WriteAllText(Globals.SpecialKey + "log.txt", "");
-            }
-            else if (cmd.Contains("close"))
-            {
-                Clear();
-                Command("");
-            }
-            else
-            {
-                this.WriteLine("Command not found!");
+                int exitCode;
+                ProcessStartInfo processInfo;
+                Process process;
+                processInfo = new ProcessStartInfo("cmd.exe", "/c " + command);
+                processInfo.CreateNoWindow = true;
+                processInfo.UseShellExecute = false;
+                // *** Redirect the output ***
+                processInfo.RedirectStandardError = true;
+                processInfo.RedirectStandardOutput = true;
+                process = Process.Start(processInfo);
+                process.WaitForExit();
+                // *** Read the streams ***
+                // Warning: This approach can lead to deadlocks, see Edit #2
+                string output = process.StandardOutput.ReadToEnd();
+                string error = process.StandardError.ReadToEnd();
+                exitCode = process.ExitCode;
+                this.WriteLine("output>>" + (String.IsNullOrEmpty(output) ? "(none)" : output + "\n"));
+                this.WriteLine("error>>" + (String.IsNullOrEmpty(error) ? "(none)" : error + "\n"));
+                this.WriteLine("ExitCode: " + exitCode.ToString() + " ExecuteCommand\n");
+                process.Close();
             }
         }
     }

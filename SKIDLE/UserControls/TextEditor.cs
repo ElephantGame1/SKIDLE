@@ -15,6 +15,7 @@ namespace SKIDLE.UserControls
         public TextEditor()
         {
             InitializeComponent();
+            title.Location = new Point(this.Size.Width / 2-50, title.Location.Y);
         }
     }
 }

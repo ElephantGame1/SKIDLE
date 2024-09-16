@@ -1,0 +1,34 @@
+Add stl
+
+
+class Logger {
+
+    fun debug(type, text) {
+        out : this.generateMessageText("DEBUG", type, text)
+    }
+
+    fun info(type, text) {
+        out : this.generateMessageText("INFO", type, text)
+    }
+
+    fun warn(type, text) {
+        out : this.generateMessageText("WARNING", type, text)
+    }
+
+    fun err(type, text) {
+        out : this.generateMessageText("ERROR", type, text)
+    }
+
+    fun critical(type, text) {
+        out : this.generateMessageText("CRITICAL", type, text)
+    }
+
+    fun generateMessageText(id, type, text) {
+        var message = "[" + id + "]" + " " + type + ": " + text
+        return message
+    }
+
+    fun log_file(file_name, id, type, text) {
+        File.write(file_name, "[" + id + "]" + " " + type + ": " + text)
+    }
+}

@@ -121,7 +121,7 @@
     <value>267, 56</value>
   </metadata>
   <metadata name="ACmenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>826, 56</value>
+    <value>268, 95</value>
   </metadata>
   <data name="ACmenu.Colors" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -135,13 +135,13 @@
         c3RlbS5EcmF3aW5nLkNvbG9yAwAAABRTeXN0ZW0uRHJhd2luZy5Db2xvcgMAAAAUU3lzdGVtLkRyYXdp
         bmcuQ29sb3IDAAAAFFN5c3RlbS5EcmF3aW5nLkNvbG9yAwAAABRTeXN0ZW0uRHJhd2luZy5Db2xvcgMA
         AAAUU3lzdGVtLkRyYXdpbmcuQ29sb3IDAAAAAgAAAAX8////FFN5c3RlbS5EcmF3aW5nLkNvbG9yBAAA
-        AARuYW1lBXZhbHVlCmtub3duQ29sb3IFc3RhdGUBAAAACQcHAwAAAAoAAAAAAAAAAA4AAQAB+/////z/
-        //8KKCgo/wAAAAAAAAIAAfr////8////CgAAAAAAAAAApQABAAH5/////P///woAAAAAAAAAAIAAAQAB
-        +P////z///8KAAAAAAAAAACAAAEAAff////8////CgAAAAAAAAAANwABAAs=
+        AARuYW1lBXZhbHVlCmtub3duQ29sb3IFc3RhdGUBAAAACQcHAwAAAAoAAAAAAAAAAAsAAQAB+/////z/
+        //8KAAAAAAAAAACkAAEAAfr////8////CgAAAAAAAAAAIwABAAH5/////P///woAAAAAAAAAAEoAAQAB
+        +P////z///8KAAAAAAAAAABKAAEAAff////8////CgAAAAAAAAAANwABAAs=
 </value>
   </data>
   <metadata name="contextMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>924, 56</value>
+    <value>144, 95</value>
   </metadata>
   <data name="code.ServiceColors" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -162,7 +162,7 @@
 </value>
   </data>
   <metadata name="topMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>699, 56</value>
+    <value>17, 95</value>
   </metadata>
   <metadata name="bottomMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>550, 56</value>

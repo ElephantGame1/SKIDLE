@@ -15,12 +15,13 @@ namespace SKIDLE.UserControls
         public About()
         {
             InitializeComponent();
+            title.Location = new Point(this.Size.Width / 2-50, title.Location.Y);
         }
 
         private void About_Load(object sender, EventArgs e)
         {
-            aboutText.SelectionColor = Color.FromArgb(60, 60, 60, 60);
-            aboutText.SelectionBackColor = Color.FromArgb(60, 60, 60, 60);
+            aboutText.BackColor = this.BackColor;
+          
         }
     }
 }

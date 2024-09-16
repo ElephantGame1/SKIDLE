@@ -1,0 +1,51 @@
+Add CanvasAPI
+Add stl
+
+    class Sperhino{
+    fun addModule(name, content){
+        var module = SperhinoModule(name, content)
+        modules = modules + module.repack()
+    }
+    fun save(srhfile){
+    
+        File.write(srhfile, modules)
+    }
+    fun append(srhfile){
+        File.append(srhfile, modules)
+    }
+    fun clear(srhfile){
+        File.write(srhfile, "")
+    }
+    fun parse(path){
+        var data = File.read(path)
+        var lines = str.split(data, "\n")
+        for var x = 0, x < length(lines), x++{
+            line = lines[x]
+            var name = ""
+            var cont = ""
+            var type = 0
+            var objs = eval("Array(" + line + ")")
+            createVariable(objs[0], objs[1])
+        }
+    }
+    fun endwork(){
+        ~modules
+        ~module
+        ~parser
+        ~data
+        ~lines
+        ~type
+        ~x
+        ~y
+        ~line
+        ~objs
+    }
+}
+class SperhinoModule(obj, cont){
+    fun repack(){
+        if typeof(this.cont) == "String" return "\"" + this.obj + "\",\"" + this.cont + "\"\n"
+        else return "\"" + this.obj + "\"," + this.cont + "\n"
+    }
+}
+
+var ss = "ssss sssss sss"

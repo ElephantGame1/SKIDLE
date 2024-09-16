@@ -1,0 +1,89 @@
+Add stl
+
+class ImmutableMap(table, count) {
+
+    fun put(key, value) {
+       var l = length(this.table)
+       if (l == 0) return ImmutableMap(arrayAppend(this.table, [key, value]), this.count + 1)
+       var table = this.table
+       var result = []
+       for (var i = 0, i < length(table), i++) {
+            var tkey = table[i][0]
+            var tvalue = table[i][1]
+            if (tkey == key and tvalue == value) continue
+            arrayAppend(result, [key, value])
+       }
+       return ImmutableMap(result, this.count + 1)
+    }
+
+    fun get(key) {
+        var t = this.table
+        for (var i = 0, i < length(t), i++) {
+            var tkey = t[i][0]
+            var tvalue = t[i][1]
+            if (key == tkey) return tvalue
+        }
+        return Null
+    }
+
+    fun clean() {
+        return ImmutableMap([], 0)
+    }
+
+    fun isEmpty() {
+        return length(this.table) == 0
+    }
+
+    fun iterateKey(f) {
+        var t = this.table
+        var collection = []
+        for (var i = 0, i < length(t), i++) {
+            var tkey = t[i][0]
+            if (tkey in collection) continue
+            f(t[i][0])
+            arrayAppend(collection, tkey)
+        }
+    }
+
+    fun iterateKeyValue(f) {
+       var t = this.table
+       var collection = []
+       for (var i = 0, i < length(t), i++) {
+           var tkey = t[i][0]
+           if (tkey in collection) continue
+           f(t[i][0], t[i][1])
+           arrayAppend(collection, tkey)
+        }
+    }
+
+
+    fun contains(key) {
+        var t = this.table
+        for (var i = 0, i < length(t), i++) {
+             var obj = t[i]
+             if (obj[0] == key) return True
+        }
+        return False
+    }
+
+    fun remove(key) {
+        var result = []
+        var t = this.table
+        for (var i = 0, i < length(t), i++) {
+            var tkey = t[i][0]
+            if (key == key) continue
+            arrayAppend(result, [tkey, t[i][0]])
+        }
+        return ImmutableMap(result, this.count - 1)
+    }
+
+    fun length() {
+        return this.count
+    }
+
+    fun toString() {
+        return toStr(this.table)
+    }
+}
+
+fun Map() return ImmutableMap([], 0)

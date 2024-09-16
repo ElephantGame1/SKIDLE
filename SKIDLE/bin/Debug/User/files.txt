@@ -1,3 +1,0 @@
-C:\Users\User\Desktop\My\Work\SpecialKey\files\3dDemo\main.spk
-C:\Users\User\Desktop\My\FSFproj\SKIDLE\SKIDLE\bin\Debug\Compiler\modules\MainF.spk
-C:\Users\User\Desktop\My\FSFproj\SKIDLE\SKIDLE\bin\Debug\explame.cfml

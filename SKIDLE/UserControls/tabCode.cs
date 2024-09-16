@@ -1,4 +1,4 @@
-﻿using SKIDLE.UI.VS;
+﻿using FastColoredTextBoxNS;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,6 +12,8 @@ namespace SKIDLE.UserControls
 {
     public class codeTab : Manina.Windows.Forms.Tab
     {
+        Style invisibleCharsStyle = new InvisibleCharsRenderer(Pens.Gray);
+
         MenuStrip topMenuStrip;
         MenuStrip bottomMenuStrip;
         ToolStripLabel stripLabel;
@@ -24,7 +26,7 @@ namespace SKIDLE.UserControls
         public int linesForDocMap = 150;
         FastColoredTextBoxNS.DocumentMap documentMap;
         private System.ComponentModel.IContainer components;
-        private VSContextMenuStripTE contextMenu;
+        private ContextMenuStrip contextMenu;
         private ToolStripMenuItem cut;
         private ToolStripMenuItem copy;
         private ToolStripMenuItem paste;
@@ -79,7 +81,7 @@ namespace SKIDLE.UserControls
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(codeTab));
             this.code = new SKIDLE.UserControls.FastCTBox();
-            this.contextMenu = new SKIDLE.UI.VS.VSContextMenuStripTE();
+            this.contextMenu = new ContextMenuStrip();
             this.ACmenu = new AutoForce(code);
             this.cut = new System.Windows.Forms.ToolStripMenuItem();
             this.copy = new System.Windows.Forms.ToolStripMenuItem();
@@ -126,18 +128,18 @@ namespace SKIDLE.UserControls
     "(?<range>:)\\s*(?<range>[^;]+);";
             this.code.AutoScrollMinSize = new System.Drawing.Size(2, 14);
             this.code.BackBrush = null;
-            this.code.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.code.BackColor = Color.WhiteSmoke;
             this.code.CharHeight = 14;
             this.code.CharWidth = 8;
             this.code.ContextMenuStrip = this.contextMenu;
             this.code.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.code.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.code.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.code.Font = new System.Drawing.Font("Roboto", 9.75F);
-            this.code.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.code.IndentBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.code.Font = new System.Drawing.Font("Roboto", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.code.ForeColor = System.Drawing.Color.Black;
+            this.code.IndentBackColor = Color.Azure;
             this.code.IsReplaceMode = false;
-            this.code.LineNumberColor = System.Drawing.Color.WhiteSmoke;
+            this.code.LineNumberColor = System.Drawing.Color.Black;
             this.code.Location = new System.Drawing.Point(0, 24);
             this.code.Name = "code";
             this.code.Paddings = new System.Windows.Forms.Padding(0);
@@ -149,11 +151,12 @@ namespace SKIDLE.UserControls
             this.code.TextChanging += new System.EventHandler<FastColoredTextBoxNS.TextChangingEventArgs>(this.Code_TextChanging);
             this.code.Load += new System.EventHandler(this.Code_Load);
             this.code.TextChangedDelayed += Code_TextChangedDelayed;
+            this.code.SelectionColor = Color.Aqua;
             
             // 
             // contextMenu
             // 
-            contextMenu.gWidth = 20;
+            contextMenu.Width = 20;
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cut,
             this.copy,
@@ -223,17 +226,18 @@ namespace SKIDLE.UserControls
             // 
             // topMenuStrip
             // 
-            this.topMenuStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.topMenuStrip.BackColor = Color.White;
             this.topMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stripLabel});
             this.topMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.topMenuStrip.Name = "topMenuStrip";
             this.topMenuStrip.Size = new System.Drawing.Size(25, 24);
             this.topMenuStrip.TabIndex = 0;
+            this.topMenuStrip.Click += CodeTab_Click;
             // 
             // stripLabel
             // 
-            this.stripLabel.ForeColor = System.Drawing.Color.White;
+            this.stripLabel.ForeColor = System.Drawing.Color.Black;
             this.stripLabel.Name = "stripLabel";
             this.stripLabel.Size = new System.Drawing.Size(0, 17);
             // 
@@ -264,7 +268,7 @@ namespace SKIDLE.UserControls
             // 
             // documentMap
             // 
-            this.documentMap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.documentMap.BackColor = Color.WhiteSmoke;
             this.documentMap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.documentMap.ForeColor = System.Drawing.Color.Maroon;
             this.documentMap.Location = new System.Drawing.Point(0, 0);
@@ -301,9 +305,10 @@ namespace SKIDLE.UserControls
             // 
             // codeTab
             // 
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(0)))), ((int)(((byte)(115)))));
+            this.Font = new System.Drawing.Font("Roboto", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+           // this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(0)))), ((int)(((byte)(115)))));
             this.Controls.Add(this.split);
-            this.ForeColor = System.Drawing.Color.White;
+            this.ForeColor = System.Drawing.Color.Black;
             ((System.ComponentModel.ISupportInitialize)(this.code)).EndInit();
             this.contextMenu.ResumeLayout(false);
             this.topMenuStrip.ResumeLayout(false);
@@ -319,9 +324,32 @@ namespace SKIDLE.UserControls
 
         }
 
+        private void CodeTab_Click(object sender, EventArgs e)
+        {
+            this.stripLabel.Click += StripLabel_Click;
+            if (stripLabel.Text != "")
+                Clipboard.SetText(this.Name);
+        }
+
+        private void StripLabel_Click(object sender, EventArgs e)
+        {
+            if (stripLabel.Text != "")
+                Clipboard.SetText(this.Name);
+        }
+
         private void Code_TextChangedDelayed(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
         {
             RefreshCode();
+            HighlightInvisibleChars(e.ChangedRange);
+            code.CurrentLineColor = Color.FromArgb(50,80, 80, 80);
+        }
+
+        private void HighlightInvisibleChars(Range range)
+        {
+            ConfigFile config = new ConfigFile(Globals.User + "configure.conf");
+            range.ClearStyle(invisibleCharsStyle);
+            if (config.GetProperty("InvisibleCharsRenderer") == "true")
+                range.SetStyle(invisibleCharsStyle, @".$|.\r\n|\s");
         }
 
         private void Code_KeyUp(object sender, KeyEventArgs e)
@@ -380,19 +408,15 @@ namespace SKIDLE.UserControls
 
         private void Code_Load(object sender, EventArgs e)
         {
-
+            HighlightingCode();
             LoadTopMenuLabel();
             RefreshCode();
-            ConfigFile config = new ConfigFile(Application.StartupPath + "\\configure.conf");
-            if (config.GetProperty("theme") == "dark")
-                Dark();
-            else
-                Light();
-            if (config.GetProperty("language") == "ru")
-                RuLang();
-            else
-                EnLang();
-
+            ConfigFile config = new ConfigFile(Globals.User + "configure.conf");
+            try { LoadConfig(config); } catch { }
+            //Theme(Globals.themes + config.GetProperty("theme"));
+            Lang(Globals.locales + config.GetProperty("language") + ".conf");
+            
+            code.Select();
             if (code.Lines.Count > linesForDocMap)
             {
                 split.Panel2Collapsed = false;
@@ -403,9 +427,46 @@ namespace SKIDLE.UserControls
             }
         }
 
-        private void EnLang()
+        private void HighlightingCode()
         {
-            ConfigFile config = new ConfigFile(Application.StartupPath+"\\Languages\\en.conf");
+            if (Text.Contains(".cs"))
+                code.Language = Language.CSharp;
+            else if (Text.Contains(".vb"))
+                code.Language = Language.VB;
+            else if (Text.Contains(".html"))
+                code.Language = Language.HTML;
+            else if (Text.Contains(".xml"))
+                code.Language = Language.XML;
+            else if (Text.Contains(".sql"))
+                code.Language = Language.SQL;
+            else if (Text.Contains(".js"))
+                code.Language = Language.JS;
+            else if (Text.Contains(".json"))
+                code.Language = Language.JSON;
+            else if (Text.Contains(".lua"))
+                code.Language = Language.Lua;
+            else if (Text.Contains(".php"))
+                code.Language = Language.PHP;
+            else
+                code.TextChangedDelayed += new EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(highLighting._HighLighting);
+            code.Name = this.Name;
+        }
+
+        private void LoadConfig(ConfigFile config)
+        {
+            if (config.GetProperty("ireplacemode") == "true")
+                code.IsReplaceMode = true;
+            else
+                code.IsReplaceMode = false;
+            code.Zoom = int.Parse(config.GetProperty("zoom"));
+            linesForDocMap = int.Parse(config.GetProperty("documentmapMinLines"));
+            //code.BackColor = Color.FromArgb(int.Parse(config.GetProperty("backcolor").Split(',')[0]), int.Parse(config.GetProperty("backcolor").Split(',')[1]),int.Parse(config.GetProperty("backcolor").Split(',')[2]));
+        }
+
+
+        private void Lang(string data)
+        {
+            ConfigFile config = new ConfigFile(data);
             cut.Text = config.GetProperty("cut");
             copy.Text = config.GetProperty("copy");
             paste.Text = config.GetProperty("paste");
@@ -414,47 +475,23 @@ namespace SKIDLE.UserControls
             replace.Text = config.GetProperty("replace");
         }
 
-        private void RuLang()
+        private void Theme(string data)
         {
-            ConfigFile config = new ConfigFile(Application.StartupPath + "\\Languages\\ru.conf");
-            cut.Text = config.GetProperty("cut");
-            copy.Text = config.GetProperty("copy");
-            paste.Text = config.GetProperty("paste");
-            find.Text = config.GetProperty("find");
-            Igoto.Text = config.GetProperty("goto");
-            replace.Text = config.GetProperty("replace");
-        }
-
-        private void Light()
-        {
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(63)))), ((int)(((byte)(226)))));
-            this.documentMap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.contextMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.contextMenu.ForeColor = Color.Black;
-            this.bottomMenuStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(63)))), ((int)(((byte)(226)))));
-            this.topMenuStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(63)))), ((int)(((byte)(226)))));
-            this.code.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.code.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.code.IndentBackColor = Color.White;
-            this.code.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.code.LineNumberColor = System.Drawing.Color.Teal;
-            code.ForeColor = Color.Black;
-        }
-
-        private void Dark()
-        {
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(0)))), ((int)(((byte)(115)))));
-            this.documentMap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.contextMenu.BackColor = System.Drawing.Color.FromArgb(25,25,25);
-            this.contextMenu.ForeColor = Color.White;
-            this.bottomMenuStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(0)))), ((int)(((byte)(123)))));
-            this.topMenuStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
-            this.code.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.code.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.code.IndentBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
-            this.code.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.code.LineNumberColor = System.Drawing.Color.WhiteSmoke;
-            code.ForeColor = Color.White;
+            /*
+            ConfigFile c = new ConfigFile(data);
+            this.BackColor = c.GetColor("backcoloredit");
+            this.documentMap.BackColor = c.GetColor("docmapBackColor");
+            this.contextMenu.BackColor = c.GetColor("contMenuBackColor");
+            this.contextMenu.ForeColor = c.GetColor("contMenuForeColor");
+            this.bottomMenuStrip.BackColor = c.GetColor("BackColor");
+            this.topMenuStrip.BackColor = c.GetColor("backcoloredit");
+            this.code.BackColor = c.GetColor("backcoloredit");
+            this.code.DisabledColor = c.GetColor("disabledColor");
+            this.code.IndentBackColor = c.GetColor("indentBackColor");
+            this.code.SelectionColor = c.GetColor("selectionColor");
+            this.code.LineNumberColor = c.GetColor("linenumberColor");
+            code.ForeColor = c.GetColor("forecolor");
+            */
         }
 
         public void LoadTopMenuLabel()
@@ -474,7 +511,6 @@ namespace SKIDLE.UserControls
         private void Code_TextChanging(object sender, FastColoredTextBoxNS.TextChangingEventArgs e)
         {
             LoadTopMenuLabel();
-            
             var line = code.PositionToPlace(code.SelectionStart);
             int ichar = line.iChar + 1;
             int iline = code.Selection.FromLine + 1;
@@ -492,52 +528,62 @@ namespace SKIDLE.UserControls
         public async void RefreshCode()
         {
             await System.Threading.Tasks.Task.Run(() => {
-                code.TextChanged += new EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(highLighting._HighLighting);
-                Hints hint = new Hints();
-                //hint.AddHint("var", "var var");
-                
-                
+                HighlightingCode();
                 ACmenu.autoForce();
+                
             });
            
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            //if (keyData == (Keys.Control | Keys.D1))
+            //    this.code.Text = this.code.Text + "fun fun1{\n   \n}\n";
+            //if (keyData == (Keys.Control | Keys.D2))
+            //    this.code.Text = this.code.Text + "struct struct1{\n   \n}\n";
+            //if (keyData == (Keys.Control | Keys.D3))
+            //    this.code.Text = this.code.Text + "class class1{\n   \n}\n";
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+    }
+
+    public class InvisibleCharsRenderer : Style
+    {
+        Pen pen;
+
+        public InvisibleCharsRenderer(Pen pen)
+        {
+            this.pen = pen;
+        }
+
+        public override void Draw(Graphics gr, Point position, Range range)
+        {
+            var tb = range.tb;
+            using (Brush brush = new SolidBrush(pen.Color))
+                foreach (var place in range)
+                {
+                    switch (tb[place].c)
+                    {
+                        case ' ':
+                            var point = tb.PlaceToPoint(place);
+                            point.Offset(tb.CharWidth / 2, tb.CharHeight / 2);
+                            gr.DrawLine(pen, point.X, point.Y, point.X + 1, point.Y);
+                            break;
+                    }
+
+                    if (tb[place.iLine].Count - 1 == place.iChar)
+                    {
+                        var point = tb.PlaceToPoint(place);
+                        point.Offset(tb.CharWidth, 0);
+                        gr.DrawString("¶", tb.Font, brush, point);
+                    }
+                }
         }
     }
     public class FastCTBox : FastColoredTextBoxNS.FastColoredTextBox
     {
         public FastCTBox()
         {
-        }
-        private Color linehighlightColor = Color.FromArgb(80, 80, 80);
-
-        int lineh = 15;
-        const int wm_paint = 15;
-
-        protected override void WndProc(ref Message m)
-        {
-            if (m.Msg == wm_paint)
-            {
-                var selectlength = this.SelectionLength;
-                var selectstart = this.SelectionStart;
-                this.Invalidate();
-                base.WndProc(ref m);
-                if (selectlength > 0)
-                {
-                    return;
-                }
-                using (Graphics g = Graphics.FromHwnd(this.Handle))
-                {
-                    OnSelectionChanged();
-                    Brush b = new SolidBrush(Color.FromArgb(50, linehighlightColor));
-                    int fntsize = (int)this.Font.Size;
-                    var line = this.PositionToPlace(selectstart);
-                    var loc = this.PositionToPoint(this.PlaceToPosition(line));
-                    g.FillRectangle(b, new Rectangle(loc, new Size(this.Width, lineh + fntsize - 6)));
-                }
-            }
-            else
-            {
-                base.WndProc(ref m);
-            }
         }
     }
 }

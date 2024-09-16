@@ -56,12 +56,11 @@ namespace SKIDLE
             this.path.MaxLength = 32767;
             this.path.Name = "path";
             this.path.PasswordChar = '\0';
-            this.path.PromptText = "Create File/Directory";
+            //this.path.PromptText = "Create File/Directory";
             this.path.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.path.SelectedText = "";
             this.path.SelectionLength = 0;
             this.path.SelectionStart = 0;
-            this.path.ShortcutsEnabled = true;
             this.path.Size = new System.Drawing.Size(292, 24);
             this.path.TabIndex = 0;
             this.path.UseSelectable = true;
